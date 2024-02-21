@@ -79,13 +79,22 @@ namespace ConsoleAppProductsList
                     }
                 case 1:
                     {
-                        List<Product> products = Product.GetList();
-                        if (products.Count == 0) { GenerateError("❌ - список продуктов пуст."); break; }
-                        else DisplayProductList(products, "advanced");
+                        try
+                        {
+                            List<Product> products = Product.GetList();
+                            if (products.Count == 0) { GenerateError("❌ - список продуктов пуст."); break; }
+                            else DisplayProductList(products, "advanced");
+                        }
+                        catch
+                        {
+                            GenerateError("❌ - Произошла ошибка обновления данных.");
+                        }
                         break;
                     }
                 case 2:
                     {
+                        try 
+                        {
                         List<Category> categories = Category.GetList();
                         List<Product> products = Product.GetList();
                         bool success = false;
@@ -109,18 +118,31 @@ namespace ConsoleAppProductsList
                             }
 
                         } while (!success);
-
-                        break;
                     }
+                        catch
+                        {
+                        GenerateError("❌ - Произошла ошибка обновления данных.");
+                    }
+                    break;
+            }
                 case 3:
                     {
+                        try
+                        {
                         List<Product> products = Product.GetTopThreeMostExpensive();
                         if (products.Count == 0) { GenerateError("❌ - список продуктов пуст."); break; }
                         DisplayProductList(products, "advanced");
+                        }
+                        catch
+                        {
+                            GenerateError("❌ - Произошла ошибка обновления данных.");
+                        }
                         break;
                     }
                 case 4:
                     {
+                        try
+                        {
                         Console.Write("Введите название товара: ");
                         string input = Console.ReadLine();
                         if (!input.IsNullOrEmpty())
@@ -130,10 +152,17 @@ namespace ConsoleAppProductsList
                             if (products.Count == 0) { GenerateError("❌ - список продуктов пуст."); break; }
                             DisplayProductList(products, "advanced");
                         }
+                        }
+                        catch
+                        {
+                            GenerateError("❌ - Произошла ошибка обновления данных.");
+                        }
                         break;
                     }
                 case 5:
                     {
+                        try
+                        {
                         List<Category> categories = Category.GetList();
 
                         if (categories.Count() > 0)
@@ -213,10 +242,17 @@ namespace ConsoleAppProductsList
                             break;
                         }
                         else GenerateError("❌ - необходимо создать минимум 1 категорию.");
+                        }
+                        catch
+                        {
+                            GenerateError("❌ - Произошла ошибка обновления данных.");
+                        }
                         break;
                     }
                 case 6:
                     {
+                        try
+                        {
                         List<Product> products = Product.GetList();
                         List<Category> categories = Category.GetList();
                         if (products.Count() > 0)
@@ -308,10 +344,17 @@ namespace ConsoleAppProductsList
                             Product.Update(prod, name, description, image, quantity, price, discount, category);
                         }
                         else GenerateError("❌ - Нечего обновлять");
+                        }
+                        catch
+                        {
+                            GenerateError("❌ - Произошла ошибка обновления данных.");
+                        }
                         break;
                     }
                 case 7:
                     {
+                        try
+                        {
                         List<Product> products = Product.GetList();
                         List<Category> categories = Category.GetList();
                         if (products.Count() > 0)
@@ -347,10 +390,17 @@ namespace ConsoleAppProductsList
                             break;
                         }
                         else GenerateError("❌ - Нечего обновлять");
+                        }
+                        catch
+                        {
+                            GenerateError("❌ - Произошла ошибка обновления данных.");
+                        }
                         break;
                     }
                 case 8:
                     {
+                        try
+                        {
                         List<Product> products = Product.GetList();
                         if (products.Count() > 0)
                         {
@@ -371,10 +421,17 @@ namespace ConsoleAppProductsList
                             break;
                         }
                         else GenerateError("❌ - Нечего удалять");
+                        }
+                        catch
+                        {
+                            GenerateError("❌ - Произошла ошибка обновления данных.");
+                        }
                         break;
                     }
                 case 9:
                     {
+                        try 
+                        {
                         string name = null;
                         string input;
 
@@ -388,10 +445,17 @@ namespace ConsoleAppProductsList
                         } while (!name.IsNullOrEmpty());
 
                         Category.Create(name);
+                        }
+                        catch
+                        {
+                            GenerateError("❌ - Произошла ошибка обновления данных.");
+                        }
                         break;
                     }
                 case 10:
                     {
+                        try
+                        {
                         List<Category> categories = Category.GetList();
                         if (categories.Count() > 0)
                         {
@@ -423,10 +487,17 @@ namespace ConsoleAppProductsList
 
                         }
                         else GenerateError("❌ - Нечего обновлять");
+                        }
+                        catch
+                        {
+                            GenerateError("❌ - Произошла ошибка обновления данных.");
+                        }
                         break;
                     }
                 case 11:
                     {
+                        try
+                        {
                         List<Category> categories = Category.GetList();
                         if (categories.Count() > 0)
                         {
@@ -449,6 +520,11 @@ namespace ConsoleAppProductsList
 
                         }
                         else GenerateError("❌ - Нечего удалять");
+                        }
+                        catch
+                        {
+                            GenerateError("❌ - Произошла ошибка обновления данных.");
+                        }
                         break;
                     }
                 case 12:
